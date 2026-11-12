@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front Yard Clear-Out — Request for Bids</title>
+<meta property="og:title" content="Front Yard Clear-Out — Contractors, Submit a Bid">
+<meta property="og:description" content="Removal & haul-away job. See photos and submit your price.">
+<meta property="og:image" content="photos/1.jpg">
+<style>
+  :root{--bg:#f5f3ee;--card:#fff;--ink:#1d2321;--mute:#5d6662;--line:#ddd8cc;--accent:#2f6b3c;--accent2:#24552f}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  header{background:var(--accent);color:#fff;padding:28px 18px 22px}
+  header h1{margin:0 0 4px;font-size:1.7rem}
+  header p{margin:0;opacity:.9}
+  main{max-width:760px;margin:0 auto;padding:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+  h2{font-size:1.15rem;margin:0 0 10px}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0}
+  .facts div{background:var(--bg);border-radius:8px;padding:10px}
+  .facts dt{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
+  .facts dd{margin:2px 0 0;font-weight:600}
+  ul.items{margin:0;padding-left:20px}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+  .gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:zoom-in;background:#e8e4da}
+  .empty{color:var(--mute);font-style:italic}
+  label{display:block;font-weight:600;font-size:.92rem;margin:12px 0 4px}
+  .hint{font-weight:400;color:var(--mute);font-size:.82rem}
+  input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+  textarea{min-height:90px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.row{grid-template-columns:1fr}}
+  .money{position:relative}.money span{position:absolute;left:11px;top:11px;color:var(--mute)}.money input{padding-left:24px}
+  button,.btn{display:inline-block;width:100%;padding:14px;border:0;border-radius:10px;background:var(--accent);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-top:16px}
+  button:hover,.btn:hover{background:var(--accent2)}
+  .btn.alt{background:#1877f2}
+  .note{font-size:.85rem;color:var(--mute)}
+  #lb{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:9}
+  #lb img{max-width:95vw;max-height:90vh;border-radius:6px}
+  footer{text-align:center;color:var(--mute);font-size:.8rem;padding:10px 0 30px}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Front Yard Clear-Out</h1>
+  <p id="subtitle">Looking for local contractors to remove &amp; haul away items. Submit your bid below.</p>
+</header>
+<main>
+
+  <section class="card">
+    <h2>Job details</h2>
+    <dl class="facts">
+      <div><dt>Location</dt><dd id="loc"></dd></div>
+      <div><dt>Bids due</dt><dd id="due"></dd></div>
+      <div><dt>Want it done by</dt><dd id="doneBy"></dd></div>
+      <div><dt>Site visits</dt><dd id="visits"></dd></div>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>What needs to go</h2>
+    <ul class="items" id="items"></ul>
+    <p class="note" id="extra"></p>
+  </section>
+
+  <section class="card">
+    <h2>Photos</h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section class="card">
+    <h2>Submit your bid</h2>
+    <form id="bidForm" method="POST">
+      <input type="hidden" name="_subject" value="New front yard clear-out bid">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_next" id="nextUrl">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="row">
+        <div><label>Company / business name</label><input name="Company" required></div>
+        <div><label>Your name</label><input name="Contact name" required></div>
+      </div>
+      <div class="row">
+        <div><label>Phone</label><input name="Phone" type="tel" required></div>
+        <div><label>Email <span class="hint">(optional)</span></label><input name="email" type="email"></div>
+      </div>
+      <label>Facebook profile or page link <span class="hint">(so I can message you)</span></label>
+      <input name="Facebook" type="url" placeholder="https://facebook.com/...">
+
+      <div class="row">
+        <div><label>Total bid price</label><div class="money"><span>$</span><input name="Bid total ($)" type="number" min="0" step="1" required></div></div>
+        <div><label>Price includes haul-away / dump fees?</label>
+          <select name="Includes haul-away" required><option value="">Choose…</option><option>Yes — all-in price</option><option>No — fees extra</option></select></div>
+      </div>
+      <div class="row">
+        <div><label>Earliest start date</label><input name="Earliest start" type="date" required></div>
+        <div><label>Time needed on site</label>
+          <select name="Time on site"><option>Under 2 hours</option><option>Half day</option><option>Full day</option><option>2+ days</option></select></div>
+      </div>
+      <div class="row">
+        <div><label>Insured?</label>
+          <select name="Insured"><option value="">Choose…</option><option>Yes</option><option>No</option></select></div>
+        <div><label>Need a site visit first?</label>
+          <select name="Wants site visit"><option>No — price is firm from photos</option><option>Yes — price may change after visit</option></select></div>
+      </div>
+      <label>Notes / what's included <span class="hint">(equipment, crew size, exclusions)</span></label>
+      <textarea name="Notes"></textarea>
+
+      <button type="submit">Submit bid</button>
+      <p class="note">After you submit, please also send me a message so we can talk details.</p>
+    </form>
+  </section>
+
+  <footer>Bids are reviewed by the homeowner. Lowest price isn't guaranteed to win.</footer>
+</main>
+
+<div id="lb" onclick="this.style.display='none'"><img alt=""></div>
+
+<script>
+/* ======== EDIT THIS SECTION ======== */
+const JOB = {
+  title: "Front Yard Clear-Out",
+  subtitle: "Looking for local contractors to remove & haul away items. Submit your bid below.",
+  location: "Inwood, WV area (exact address shared with bidders)",
+  bidsDue: "TBD",
+  doneBy: "TBD",
+  siteVisits: "By appointment — message me",
+  items: [
+    "Wooden raised garden beds / planter boxes (multiple, with soil and dead plants)",
+    "Wood posts, stakes and loose lumber",
+    "Wire tomato cages and garden fencing",
+    "Dead plants, weeds and brush in the beds and side yard",
+    "Debris along the front wall: hoses, cables, cardboard boxes, buckets, trash",
+    "Side yard: pots, plastic containers, hoses and general junk"
+  ],
+  extra: "Only the areas outlined in red in the photos. The garage and its contents are NOT part of this job. Please bid to remove everything and haul it away, and leave the area raked/clear.",
+  photos: ["photos/1.jpg","photos/2.jpg"],
+  bidEmail: "springedservices@gmail.com",   // swap for FormSubmit alias after first confirm
+  messengerUrl: ""                  // e.g. "https://m.me/yourname"
+};
+/* =================================== */
+
+const $ = id => document.getElementById(id);
+document.title = JOB.title + " — Request for Bids";
+$("title").textContent = JOB.title;
+$("subtitle").textContent = JOB.subtitle;
+$("loc").textContent = JOB.location;
+$("due").textContent = JOB.bidsDue;
+$("doneBy").textContent = JOB.doneBy;
+$("visits").textContent = JOB.siteVisits;
+$("extra").textContent = JOB.extra;
+$("items").innerHTML = JOB.items.map(i => "<li>" + i.replace(/</g,"&lt;") + "</li>").join("");
+
+const g = $("gallery");
+if (!JOB.photos.length) g.innerHTML = '<p class="empty">Photos coming soon.</p>';
+JOB.photos.forEach(src => {
+  const im = new Image(); im.src = src; im.loading = "lazy"; im.alt = "Yard photo";
+  im.onclick = () => { $("lb").querySelector("img").src = src; $("lb").style.display = "flex"; };
+  g.appendChild(im);
+});
+
+$("bidForm").action = "https://formsubmit.co/" + JOB.bidEmail;
+$("nextUrl").value = new URL("thanks.html", location.href).href;
+</script>
+</body>
+</html>
